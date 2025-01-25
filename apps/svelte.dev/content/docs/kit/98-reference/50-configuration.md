@@ -1087,6 +1087,38 @@ What type of client-side router to use.
 
 </div>
 </div>
+<div class="ts-block-property">
+
+```ts
+// @noErrors
+resolution?: 'client' | 'server';
+```
+
+<div class="ts-block-property-details">
+
+<div class="ts-block-property-bullets">
+
+- <span class="tag">default</span> `"client"`
+- <span class="tag since">available since</span> v2.17.0
+
+</div>
+
+Where to determine the route to load when navigating to a new page.
+
+By default, SvelteKit will load a routing manifest to the client containing information about all possible routes.
+When a link is clicked, the `reroute` hook (if any) is invoked and then this manifest is used to determine what components to load and which data loaders to run.
+Because everything happens on the client, this decision can be made synchronously and therefore very fast. The drawback is that the manifest needs to be
+loaded and parsed before the first navigation can happen, which may have an impact if your app contains many routes.
+
+SvelteKit also provides the option to determine the route on the server. This means that for every navigation, the server will be asked to determine the route.
+This has several advantages:
+- The client does not need to load the routing manifest upfront, which can lead to faster initial page loads
+- Because the client manifest is not loaded, people cannot use it to determine all possible routes in your app
+- Because there's a server request for each navigation, you have the ability to intercept these calls for example through a middleware, and for example do A/B testing opaque to SvelteKit
+The drawback is that the server request may take a bit longer than a synchronous client-side route determination, though note that for each unique pathname the server will only be asked once.
+
+</div>
+</div>
 
 </div>
 
