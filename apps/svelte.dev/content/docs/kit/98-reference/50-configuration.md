@@ -1117,6 +1117,8 @@ This has several advantages:
 - Because there's a server request for each navigation, you have the ability to intercept these calls for example through a middleware, and for example do A/B testing opaque to SvelteKit
 The drawback is that the server request may take a bit longer than a synchronous client-side route determination, though note that for each unique pathname the server will only be asked once.
 
+> [!NOTE] When using server-side route resolution and prerendering, the resolution request for a prerendered page will be prerendered as well.
+
 </div>
 </div>
 
